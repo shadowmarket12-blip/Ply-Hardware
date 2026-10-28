@@ -1,0 +1,210 @@
+/* Parbati Ply & Hardware - About page image layer. Load AFTER about3d.css */
+.lx-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* if a photo file is missing, the img is hidden and the original artwork shows instead */
+.lx-img:not([hidden]) ~ svg {
+  display: none;
+}
+.lx-ph {
+  margin: 0;
+  position: relative;
+  overflow: hidden;
+  border-radius: 28px;
+  background: var(--w2)
+    repeating-linear-gradient(
+      95deg,
+      rgba(0, 0, 0, 0.09) 0 2px,
+      transparent 2px 10px
+    );
+  box-shadow: 0 40px 70px -30px #000;
+}
+
+/* ---------- Hero photos (3D depth, scroll + mouse) ---------- */
+.lx-main {
+  width: min(360px, 74%);
+  aspect-ratio: 4/5;
+  border-radius: 999px 999px 28px 28px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  transform: perspective(1000px) rotateY(calc(-8deg + var(--mx, 0) * -14deg))
+    rotateX(calc(var(--my, 0) * 10deg)) translateY(calc(var(--o, 0) * -50px));
+  transition: transform 0.2s linear;
+}
+.lx-sm1,
+.lx-sm2 {
+  position: absolute;
+  z-index: 2;
+  width: 33%;
+  aspect-ratio: 1;
+  border: 4px solid #0d0b0a;
+  border-radius: 24px;
+}
+.lx-sm1 {
+  right: 0;
+  top: 6%;
+  translate: 0 calc(var(--o, 0) * -110px);
+}
+.lx-sm2 {
+  left: 0;
+  bottom: 22%;
+  translate: 0 calc(var(--o, 0) * -70px);
+}
+.lx-scene .lx-chip:nth-of-type(1) {
+  left: 2%;
+  top: 6%;
+  right: auto;
+  bottom: auto;
+}
+.lx-scene .lx-chip:nth-of-type(2) {
+  right: 0;
+  bottom: 14%;
+  left: auto;
+  top: auto;
+}
+.lx-scene .lx-chip:nth-of-type(3) {
+  left: 26%;
+  bottom: 0;
+  right: auto;
+  top: auto;
+}
+
+/* ---------- Story photo ---------- */
+.lx-wide {
+  aspect-ratio: 16/10;
+  margin: 1.8rem 0;
+  box-shadow: 0 30px 50px -28px rgba(0, 0, 0, 0.5);
+}
+
+/* ---------- Product cards ---------- */
+.ccard .ci {
+  position: relative;
+  height: 210px;
+  padding: 0;
+  overflow: hidden;
+  display: grid;
+  align-items: center;
+}
+.ccard .ci .lx-img {
+  position: absolute;
+  inset: 0;
+  transition: transform 0.6s var(--ease);
+}
+.ccard:hover .ci .lx-img {
+  transform: scale(1.08);
+}
+.ccard .ci:has(.lx-img:not([hidden]))::after {
+  display: none;
+}
+
+/* ---------- Who we serve ---------- */
+.cust .show {
+  min-height: 380px;
+  padding: 0;
+  overflow: hidden;
+}
+.cust .show .lx-img {
+  position: absolute;
+  inset: 0;
+}
+
+/* ---------- Full-width parallax photo band ---------- */
+.lx-band {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  color: #fff;
+  padding: clamp(5rem, 12vw, 9rem) 0;
+  background:
+    radial-gradient(
+      700px 400px at 85% 20%,
+      rgba(214, 25, 31, 0.35),
+      transparent 70%
+    ),
+    #121010;
+}
+.lx-band .lx-img {
+  position: absolute;
+  left: 0;
+  top: -12%;
+  height: 124%;
+  z-index: -2;
+  translate: 0 calc((var(--t, 0.5) - 0.5) * -90px);
+}
+.lx-band::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    90deg,
+    rgba(13, 11, 10, 0.88),
+    rgba(13, 11, 10, 0.3)
+  );
+}
+.lx-band h2 {
+  color: #fff;
+  max-width: 20ch;
+  font-size: clamp(1.8rem, 4.2vw, 3.2rem);
+}
+.lx-band .btn {
+  margin-top: 1.8rem;
+}
+
+/* ---------- Service photos ---------- */
+.scard .lx-img {
+  height: auto;
+  aspect-ratio: 16/10;
+  border-radius: 18px;
+  margin-bottom: 1.1rem;
+}
+
+/* ---------- Visit photo ---------- */
+.vcard .lx-banner {
+  height: auto;
+  aspect-ratio: 16/8;
+  border-radius: 22px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+  .lx-main {
+    width: min(300px, 64%);
+  }
+  .ccard .ci {
+    height: 230px;
+  }
+  .cust .show {
+    min-height: 300px;
+  }
+}
+@media (max-width: 560px) {
+  .lx-main {
+    width: 62%;
+  }
+  .lx-sm1,
+  .lx-sm2 {
+    width: 30%;
+    border-radius: 18px;
+  }
+  .lx-scene .lx-chip:nth-of-type(3) {
+    left: 12%;
+  }
+  .ccard .ci {
+    height: 200px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lx-main,
+  .lx-sm1,
+  .lx-sm2,
+  .lx-band .lx-img {
+    transform: none;
+    translate: none;
+    transition: none;
+  }
+}

@@ -1,0 +1,1144 @@
+.atx-section {
+  position: relative;
+  padding: clamp(2rem, 3vw, 9rem) 0;
+  overflow: hidden;
+  isolation: isolate;
+  /* background: var(--bg, #f6f2ec); */
+}
+
+.atx-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: -2;
+}
+
+/* ============================================================
+   SHARED TYPOGRAPHY
+   ============================================================ */
+.atx-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-family: Inter, sans-serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--acc, #b4622a);
+}
+
+.atx-eyebrow::before {
+  content: "";
+  width: 30px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.7;
+}
+
+.atx-eyebrow.light {
+  color: var(--acc-2, #d99a4e);
+}
+
+.atx-head {
+  max-width: 76ch;
+  margin: 0 auto clamp(2.6rem, 4.8vw, 4rem);
+}
+
+.atx-head--center {
+  text-align: center;
+}
+
+.atx-head--serve {
+  margin-top: clamp(4rem, 7vw, 6rem);
+}
+
+.atx-head .atx-eyebrow {
+  margin-bottom: 1.1rem;
+}
+
+.atx-head h2 {
+  font-family: Fraunces, Georgia, serif;
+  font-weight: 500;
+  font-size: clamp(1.95rem, 4vw, 3.05rem);
+  line-height: 1.06;
+  letter-spacing: -0.028em;
+  color: var(--ink, #171310);
+  margin: 0;
+}
+
+.atx-approach-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.2rem, 2vw, 2rem);
+  align-items: start;
+}
+
+.atx-approach-card {
+  position: relative;
+  border-radius: 24px;
+  background: var(--card, #fffdfa);
+  border: 1px solid var(--line, rgba(23, 19, 16, 0.12));
+  box-shadow: 0 18px 36px -28px rgba(23, 19, 16, 0.5);
+  transition:
+    transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1),
+    border-color 0.6s;
+}
+
+/* pre-made hover shadow — only opacity is animated */
+.atx-approach-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: 0 36px 60px -36px rgba(23, 19, 16, 0.7);
+  opacity: 0;
+  transition: opacity 0.6s;
+  pointer-events: none;
+}
+
+.atx-section .atx-approach-card:hover,
+.atx-section .atx-approach-card:focus-within {
+  transform: translateY(-10px);
+  border-color: rgba(180, 98, 42, 0.42);
+}
+
+.atx-section .atx-approach-card:hover::after,
+.atx-section .atx-approach-card:focus-within::after {
+  opacity: 1;
+}
+
+/* reveal delay (uses the --d var pattern from premium.css) */
+.atx-approach-card:nth-child(2).rv {
+  --d: 100ms;
+}
+
+.atx-approach-card:nth-child(3).rv {
+  --d: 200ms;
+}
+
+/* staggered vertical rhythm — desktop only */
+@media (min-width: 1024px) {
+  .atx-approach-card:nth-child(2) {
+    margin-top: 5rem;
+  }
+
+  .atx-approach-card:nth-child(3) {
+    margin-top: 2.5rem;
+  }
+}
+
+/* --- media --- */
+.atx-approach-media {
+  position: relative;
+  aspect-ratio: 5 / 4;
+  overflow: hidden;
+  border-radius: 23px 23px 0 0;
+  background: linear-gradient(150deg, #d3a873, #7d5733 60%, #4a3323);
+}
+
+.atx-approach-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.02);
+  transition: transform 1.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.atx-approach-card:hover .atx-approach-media img {
+  transform: scale(1.1);
+}
+
+/* soft vignette so the numeral reads cleanly */
+.atx-approach-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(10, 8, 7, 0.55) 0%, transparent 35%),
+    linear-gradient(0deg, rgba(10, 8, 7, 0.18) 0%, transparent 30%);
+  pointer-events: none;
+}
+
+/* --- numeral --- */
+.atx-numeral {
+  position: absolute;
+  top: 1.15rem;
+  left: 1.4rem;
+  z-index: 2;
+  font-family: Fraunces, Georgia, serif;
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(3rem, 5.4vw, 4.4rem);
+  line-height: 0.85;
+  letter-spacing: -0.05em;
+  color: transparent;
+  background: linear-gradient(135deg, #f3d8a8 0%, #eab77a 40%, #b4622a 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* --- chapter pill (no backdrop blur) --- */
+.atx-chapter {
+  position: absolute;
+  top: 1.4rem;
+  right: 1.4rem;
+  z-index: 2;
+  font-family: Inter, sans-serif;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #fff;
+  padding: 0.5rem 0.9rem;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* --- body --- */
+.atx-approach-body {
+  padding: clamp(1.4rem, 2.2vw, 1.9rem);
+}
+
+.atx-approach-body h3 {
+  font-family: Fraunces, Georgia, serif;
+  font-weight: 600;
+  font-size: clamp(1.15rem, 1.5vw, 1.32rem);
+  line-height: 1.22;
+  letter-spacing: -0.018em;
+  color: var(--ink, #171310);
+  margin: 0 0 0.85rem;
+}
+
+.atx-rule {
+  display: block;
+  height: 1px;
+  width: 48px;
+  background: linear-gradient(90deg, rgba(180, 98, 42, 0.55), transparent);
+  margin-bottom: 1.05rem;
+  transition: width 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.atx-approach-card:hover .atx-rule {
+  width: 104px;
+}
+
+.atx-approach-body p {
+  font-size: 0.9rem;
+  line-height: 1.72;
+  color: var(--ink-2, #55493f);
+  margin: 0 0 0.7rem;
+}
+
+.atx-approach-body p:last-child {
+  margin-bottom: 0;
+}
+
+/* ============================================================
+   PART 2 — WHAT WE OFFER · shimmer-lit dark panel
+   ============================================================ */
+/* ============================================================
+   ATX OFFER — curvy red card (no numbers, no gradients)
+   ============================================================ */
+
+.atx-offer {
+  --red: #d6191f;
+  --red-dark: #a90f15;
+  --red-glow: rgba(214, 25, 31, 0.35);
+  --ink: #f5f1ee;
+  --muted: rgba(255, 255, 255, 0.68);
+  --line: rgba(255, 255, 255, 0.08);
+  --r: clamp(28px, 4vw, 52px);
+
+  position: relative;
+  margin-top: clamp(4rem, 7vw, 6rem);
+  padding: clamp(3rem, 6vw, 5rem) clamp(2rem, 4.5vw, 4rem);
+  background: #0a0807;
+  overflow: hidden;
+  isolation: isolate;
+  border-radius: var(--r);
+  border: 1px solid rgba(214, 25, 31, 0.35);
+  box-shadow:
+    0 0 0 1px rgba(214, 25, 31, 0.06),
+    0 34px 80px -44px rgba(214, 25, 31, 0.35),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+  transition: box-shadow 0.5s ease;
+}
+
+.atx-offer:hover {
+  box-shadow:
+    0 0 0 1px rgba(214, 25, 31, 0.14),
+    0 40px 100px -44px rgba(214, 25, 31, 0.5),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+}
+
+/* ---- left red rail (inside padding, follows card curve) ---- */
+.atx-red-rail {
+  position: absolute;
+  top: clamp(3rem, 6vw, 5rem);
+  bottom: clamp(3rem, 6vw, 5rem);
+  left: clamp(1.1rem, 2.2vw, 1.6rem);
+  width: 2px;
+  background: var(--red);
+  box-shadow:
+    0 0 10px var(--red-glow),
+    0 0 24px rgba(214, 25, 31, 0.2);
+  z-index: 3;
+  border-radius: 2px;
+  animation: atx-rail-pulse 3.5s ease-in-out infinite;
+}
+
+.atx-red-rail::before,
+.atx-red-rail::after {
+  content: "";
+  position: absolute;
+  left: -2px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--red);
+  box-shadow: 0 0 10px var(--red-glow);
+}
+
+.atx-red-rail::before {
+  top: -3px;
+}
+.atx-red-rail::after {
+  bottom: -3px;
+}
+
+@keyframes atx-rail-pulse {
+  0%,
+  100% {
+    opacity: 0.8;
+    box-shadow:
+      0 0 10px var(--red-glow),
+      0 0 24px rgba(214, 25, 31, 0.2);
+  }
+  50% {
+    opacity: 1;
+    box-shadow:
+      0 0 16px var(--red-glow),
+      0 0 36px rgba(214, 25, 31, 0.3);
+  }
+}
+
+/* ---- corner red mark (bottom-right, tucked inside the curve) ---- */
+.atx-red-mark {
+  position: absolute;
+  bottom: clamp(1.2rem, 2.4vw, 1.8rem);
+  right: clamp(1.2rem, 2.4vw, 1.8rem);
+  width: 96px;
+  height: 96px;
+  pointer-events: none;
+  z-index: 2;
+  background:
+    linear-gradient(315deg, var(--red) 0 2px, transparent 2px),
+    linear-gradient(315deg, rgba(214, 25, 31, 0.22) 0 32px, transparent 32px);
+  opacity: 0.85;
+  border-radius: 2px;
+}
+
+/* ---- bg image + veil ---- */
+.atx-offer-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  border-radius: var(--r);
+}
+
+.atx-offer-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.14;
+  filter: saturate(0.4) contrast(1.2);
+  transition: transform 1.4s ease;
+}
+
+.atx-offer:hover .atx-offer-bg img {
+  transform: scale(1.03);
+}
+
+.atx-offer-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      45deg,
+      transparent 0 40px,
+      rgba(214, 25, 31, 0.035) 40px 42px
+    ),
+    radial-gradient(
+      80% 60% at 100% 0%,
+      rgba(214, 25, 31, 0.1),
+      transparent 60%
+    ),
+    radial-gradient(
+      70% 60% at 0% 100%,
+      rgba(214, 25, 31, 0.06),
+      transparent 55%
+    ),
+    linear-gradient(160deg, rgba(10, 8, 7, 0.88), rgba(10, 8, 7, 0.96));
+}
+
+/* ---- inner grid ---- */
+.atx-offer-inner {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: clamp(2.4rem, 5vw, 4.5rem);
+  align-items: start;
+}
+
+/* ============================================================
+   LEFT COLUMN
+   ============================================================ */
+
+.atx-eyebrow-red {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-family: var(--head);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 1.2rem;
+}
+
+.atx-dash {
+  display: inline-block;
+  width: 32px;
+  height: 2px;
+  background: var(--red);
+  border-radius: 2px;
+  box-shadow: 0 0 10px var(--red-glow);
+}
+
+.atx-offer-left h2 {
+  font-family: var(--head);
+  font-weight: 600;
+  font-size: clamp(1.9rem, 3.8vw, 3rem);
+  line-height: 1.04;
+  letter-spacing: -0.03em;
+  color: #fff;
+  margin: 0 0 1.4rem;
+}
+
+.atx-offer-left h2 em {
+  font-style: italic;
+  font-weight: 500;
+  color: var(--red);
+  position: relative;
+  display: inline-block;
+}
+
+.atx-offer-left h2 em::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 100%;
+  height: 2px;
+  background: var(--red);
+  box-shadow: 0 0 12px var(--red-glow);
+  transform-origin: left;
+  transform: scaleX(0);
+}
+
+.atx-offer.rv.in .atx-offer-left h2 em::after {
+  animation: atx-underline 1.1s cubic-bezier(0.2, 0.8, 0.2, 1) 0.4s forwards;
+}
+
+@keyframes atx-underline {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.atx-lead {
+  color: var(--muted);
+  font-size: 0.98rem;
+  line-height: 1.75;
+  margin: 0 0 1.2rem;
+  max-width: 50ch;
+}
+
+.atx-lead--sm {
+  font-size: 0.9rem;
+  margin-top: 1.2rem;
+}
+
+/* ---- CNC feature ---- */
+.atx-cnc {
+  display: flex;
+  gap: 1.1rem;
+  align-items: flex-start;
+  padding: 0.2rem 0 0.2rem 1.4rem;
+  margin: 1.6rem 0;
+  position: relative;
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.atx-cnc-bar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--red);
+  box-shadow: 0 0 12px var(--red-glow);
+  border-radius: 2px;
+}
+
+.atx-cnc-bar::before,
+.atx-cnc-bar::after {
+  content: "";
+  position: absolute;
+  left: -2px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--red);
+  box-shadow: 0 0 10px var(--red-glow);
+}
+
+.atx-cnc-bar::before {
+  top: -3px;
+}
+.atx-cnc-bar::after {
+  bottom: -3px;
+}
+
+.atx-cnc:hover {
+  transform: translateX(3px);
+}
+
+.atx-cnc b {
+  display: block;
+  font-family: var(--head);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 0.35rem;
+}
+
+.atx-cnc span {
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 0.94rem;
+  line-height: 1.68;
+}
+
+.atx-cnc strong {
+  color: #fff;
+  font-weight: 600;
+}
+
+/* ---- CTA ---- */
+.atx-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin-top: 1.6rem;
+  padding: 1rem 1.6rem 1rem 1.9rem;
+  border-radius: 999px;
+  background: var(--red);
+  color: #fff;
+  font-size: 0.92rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  border: 1px solid var(--red);
+  box-shadow:
+    0 14px 30px -14px var(--red-glow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  transition:
+    transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 0.4s,
+    background 0.4s;
+}
+
+.atx-cta:hover {
+  background: var(--red-dark);
+  border-color: var(--red-dark);
+  transform: translateY(-3px);
+  box-shadow:
+    0 22px 44px -18px var(--red-glow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.28);
+}
+
+.atx-cta-arr {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.14);
+  transition:
+    transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
+    background 0.4s;
+}
+
+.atx-cta:hover .atx-cta-arr {
+  transform: translateX(3px);
+  background: rgba(255, 255, 255, 0.24);
+}
+
+.atx-cta svg {
+  width: 13px;
+  height: 13px;
+  fill: none;
+  stroke: #fff;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ============================================================
+   RIGHT COLUMN — editorial list (no numbers)
+   ============================================================ */
+
+.atx-products {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--line);
+}
+
+.atx-product {
+  position: relative;
+  display: grid;
+  grid-template-columns: 44px 1fr 22px;
+  gap: 1.1rem;
+  align-items: center;
+  padding: 1.2rem 0.4rem 1.2rem 0;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink);
+  transition:
+    padding 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
+    background 0.4s;
+  animation: atx-row-in 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation-delay: calc(var(--i, 0) * 0.06s + 0.2s);
+}
+
+@keyframes atx-row-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.atx-product::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(214, 25, 31, 0.14),
+    rgba(214, 25, 31, 0.02) 70%,
+    transparent
+  );
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+  pointer-events: none;
+}
+
+.atx-product:hover::before {
+  transform: scaleX(1);
+}
+
+.atx-product::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  height: 1px;
+  width: 100%;
+  background: var(--red);
+  box-shadow: 0 0 10px var(--red-glow);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.atx-product:hover::after {
+  transform: scaleX(1);
+}
+
+.atx-product:hover {
+  padding-left: 1rem;
+  background: rgba(214, 25, 31, 0.04);
+}
+
+/* icon */
+.atx-product-icon {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border-radius: 11px;
+  background: #1a1412;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  transition:
+    background 0.4s,
+    border-color 0.4s,
+    transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.atx-product-icon svg {
+  width: 22px;
+  height: 22px;
+  transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.atx-product:hover .atx-product-icon {
+  background: var(--red);
+  border-color: var(--red);
+  transform: rotate(-6deg) scale(1.05);
+}
+
+.atx-product:hover .atx-product-icon svg {
+  transform: scale(1.05);
+}
+
+/* label */
+.atx-product-label {
+  font-size: 0.98rem;
+  font-weight: 500;
+  letter-spacing: 0.005em;
+  transition:
+    color 0.4s,
+    letter-spacing 0.4s;
+}
+
+.atx-product:hover .atx-product-label {
+  color: #fff;
+  letter-spacing: 0.02em;
+}
+
+/* arrow */
+.atx-product-arr {
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  color: rgba(255, 255, 255, 0.28);
+  opacity: 0;
+  transform: translateX(-8px);
+  transition:
+    opacity 0.4s,
+    transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
+    color 0.4s;
+}
+
+.atx-product:hover .atx-product-arr {
+  opacity: 1;
+  transform: translateX(0);
+  color: var(--red);
+}
+
+.atx-product-arr svg {
+  width: 15px;
+  height: 15px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 960px) {
+  .atx-offer-inner {
+    grid-template-columns: 1fr;
+    gap: 2.4rem;
+  }
+
+  .atx-offer-left h2 {
+    font-size: clamp(1.7rem, 5.5vw, 2.4rem);
+  }
+
+  .atx-red-rail,
+  .atx-red-mark {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .atx-offer {
+    padding: clamp(2.4rem, 7vw, 3.2rem) clamp(1.4rem, 5vw, 2rem);
+    margin-top: clamp(3rem, 7vw, 4.5rem);
+    border-radius: 24px;
+  }
+
+  .atx-offer-bg {
+    border-radius: 24px;
+  }
+
+  .atx-offer-left h2 {
+    font-size: clamp(1.6rem, 7vw, 2.1rem);
+  }
+
+  .atx-lead {
+    font-size: 0.93rem;
+  }
+
+  .atx-product {
+    grid-template-columns: 40px 1fr 20px;
+    gap: 0.9rem;
+    padding: 1rem 0.25rem 1rem 0;
+  }
+
+  .atx-product-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+  }
+
+  .atx-product-icon svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .atx-product-label {
+    font-size: 0.92rem;
+  }
+
+  .atx-cta {
+    width: 100%;
+    justify-content: space-between;
+    padding-left: 1.6rem;
+  }
+}
+
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .atx-red-rail,
+  .atx-product,
+  .atx-offer-left h2 em::after {
+    animation: none !important;
+  }
+
+  .atx-offer-left h2 em::after {
+    transform: scaleX(1);
+  }
+
+  .atx-product::before,
+  .atx-product::after,
+  .atx-offer-bg img,
+  .atx-product,
+  .atx-product-icon,
+  .atx-product-arr,
+  .atx-cta,
+  .atx-cta-arr,
+  .atx-offer {
+    transition: none !important;
+  }
+}
+
+/* ============================================================
+   PART 3 — SERVING · offset image cards with floating icons
+   ============================================================ */
+.atx-serve-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(1rem, 1.6vw, 1.5rem);
+  align-items: start;
+}
+
+.atx-serve-card {
+  position: relative;
+  border-radius: 22px;
+  background: var(--card, #fffdfa);
+  border: 1px solid var(--line, rgba(23, 19, 16, 0.12));
+  box-shadow: 0 16px 32px -26px rgba(23, 19, 16, 0.5);
+  transition:
+    transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1),
+    border-color 0.6s;
+}
+
+.atx-serve-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: 0 32px 56px -34px rgba(23, 19, 16, 0.75);
+  opacity: 0;
+  transition: opacity 0.6s;
+  pointer-events: none;
+}
+
+.atx-section .atx-serve-card:hover,
+.atx-section .atx-serve-card:focus-within {
+  transform: translateY(-8px);
+  border-color: rgba(180, 98, 42, 0.42);
+}
+
+.atx-section .atx-serve-card:hover::after,
+.atx-section .atx-serve-card:focus-within::after {
+  opacity: 1;
+}
+
+.atx-serve-card:nth-child(2).rv {
+  --d: 80ms;
+}
+
+.atx-serve-card:nth-child(3).rv {
+  --d: 160ms;
+}
+
+.atx-serve-card:nth-child(4).rv {
+  --d: 240ms;
+}
+
+@media (min-width: 1024px) {
+  .atx-serve-card:nth-child(even) {
+    margin-top: 3rem;
+  }
+}
+
+.atx-serve-media {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: 21px 21px 0 0;
+  /* background: linear-gradient(150deg, #d3a873, #7d5733 60%, #4a3323); */
+}
+
+.atx-serve-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.03);
+  transition: transform 1.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.atx-serve-card:hover .atx-serve-media img {
+  transform: scale(1.12);
+}
+
+.atx-serve-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 55%, rgba(10, 8, 7, 0.32));
+  pointer-events: none;
+}
+
+/* icon now lives inside .atx-serve-media (see HTML) */
+.atx-serve-icon {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  z-index: 2;
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: linear-gradient(140deg, #b4622a, #8d4718);
+  box-shadow:
+    0 14px 28px -14px rgba(180, 98, 42, 0.95),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.18);
+  color: #fff;
+  transition: transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.atx-serve-card:hover .atx-serve-icon {
+  transform: scale(1.1) rotate(-6deg);
+}
+
+.atx-serve-icon svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.atx-serve-body {
+  padding: 1.3rem 1.4rem 1.5rem;
+}
+
+.atx-serve-body h3 {
+  font-family: Fraunces, Georgia, serif;
+  font-weight: 600;
+  font-size: clamp(1rem, 1.3vw, 1.1rem);
+  line-height: 1.24;
+  letter-spacing: -0.012em;
+  color: var(--ink, #171310);
+  margin: 0 0 0.55rem;
+}
+
+.atx-serve-body p {
+  font-size: 0.88rem;
+  line-height: 1.65;
+  color: var(--ink-2, #55493f);
+  margin: 0;
+}
+
+/* ============================================================
+   IMAGE FALLBACK (activated by onerror class — no inline style)
+   ============================================================ */
+.atx-approach-media.is-fallback,
+.atx-serve-media.is-fallback {
+  background:
+    radial-gradient(
+      circle at 32% 24%,
+      rgba(255, 255, 255, 0.18),
+      transparent 62%
+    ),
+    linear-gradient(150deg, #d3a873, #7d5733 60%, #4a3323);
+}
+
+.atx-approach-media.is-fallback img,
+.atx-serve-media.is-fallback img {
+  display: none;
+}
+
+.atx-approach-media.is-fallback::before,
+.atx-serve-media.is-fallback::before {
+  content: "";
+  position: absolute;
+  inset: 22%;
+  border-radius: 50%;
+  border: 1px dashed rgba(255, 255, 255, 0.3);
+  animation: atx-spin 40s linear infinite;
+}
+
+@keyframes atx-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 1100px) {
+  .atx-approach-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .atx-approach-card:nth-child(3) {
+    grid-column: 1 / -1;
+    margin-top: 0;
+  }
+
+  .atx-approach-card:nth-child(3) .atx-approach-media {
+    aspect-ratio: 16 / 9;
+  }
+
+  .atx-offer-inner {
+    grid-template-columns: 1fr;
+  }
+
+  .atx-serve-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .atx-approach-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .atx-approach-card:nth-child(3) {
+    grid-column: auto;
+  }
+
+  .atx-approach-card:nth-child(3) .atx-approach-media {
+    aspect-ratio: 5 / 4;
+  }
+
+  .atx-head,
+  .atx-head--serve {
+    text-align: left;
+  }
+
+  .atx-head .atx-eyebrow::before {
+    width: 22px;
+  }
+
+  .atx-products {
+    grid-template-columns: 1fr;
+  }
+
+  .atx-serve-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .atx-cta {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* touch devices — no lift */
+@media (hover: none) {
+  .atx-section .atx-approach-card:hover,
+  .atx-section .atx-serve-card:hover {
+    transform: none;
+  }
+
+  .atx-approach-card:hover .atx-approach-media img,
+  .atx-serve-card:hover .atx-serve-media img {
+    transform: scale(1.03);
+  }
+
+  .atx-serve-card:hover .atx-serve-icon {
+    transform: none;
+  }
+}
+
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  .atx-approach-card,
+  .atx-approach-card::after,
+  .atx-approach-media img,
+  .atx-approach-card .atx-rule,
+  .atx-product,
+  .atx-serve-card,
+  .atx-serve-card::after,
+  .atx-serve-media img,
+  .atx-serve-icon,
+  .atx-cta,
+  .atx-cta::before {
+    transition: none !important;
+    animation: none !important;
+  }
+
+  .atx-section .atx-approach-card:hover,
+  .atx-section .atx-serve-card:hover {
+    transform: none !important;
+  }
+
+  .atx-approach-media.is-fallback::before,
+  .atx-serve-media.is-fallback::before {
+    animation: none !important;
+  }
+}

@@ -1,0 +1,475 @@
+/* ---------- SECTION ---------- */
+.lux-cat-section {
+  position: relative;
+  padding: clamp(4.5rem, 9vw, 8rem) 0;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.lux-cat-section::before {
+  content: "";
+  position: absolute;
+  inset: -18% -8% auto -8%;
+  height: 85%;
+  background:
+    radial-gradient(
+      46% 56% at 12% 4%,
+      var(--acc-soft, rgba(180, 98, 42, 0.12)),
+      transparent 70%
+    ),
+    radial-gradient(42% 52% at 88% 8%, rgba(125, 87, 51, 0.14), transparent 72%);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* ---------- HEADER ---------- */
+.lux-cat-head {
+  max-width: 76ch;
+  margin: 0 auto clamp(2.6rem, 4.6vw, 4rem);
+  text-align: center;
+}
+
+.lux-cat-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--acc, #b4622a);
+  margin-bottom: 1rem;
+}
+
+.lux-cat-eyebrow::before {
+  content: "";
+  width: 28px;
+  height: 2px;
+  border-radius: 2px;
+  background: currentColor;
+}
+
+.lux-cat-head h2 {
+  font-family: Fraunces, Georgia, serif;
+  font-weight: 600;
+  font-size: clamp(1.8rem, 3.6vw, 2.9rem);
+  line-height: 1.1;
+  letter-spacing: -0.024em;
+  color: var(--ink, #171310);
+  margin: 0 0 0.9rem;
+}
+
+.lux-cat-head p {
+  margin: 0 auto;
+  max-width: 68ch;
+  font-size: clamp(0.96rem, 1.2vw, 1.06rem);
+  line-height: 1.72;
+  color: var(--ink-2, #55493f);
+}
+
+/* ---------- GRID ---------- */
+.lux-cat-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1rem, 2vw, 1.6rem);
+}
+
+/* ---------- CARD SHELL ---------- */
+.lux-cat-card {
+  perspective: 1400px;
+}
+
+.lux-cat-card__inner {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  border-radius: 26px;
+  overflow: hidden;
+  background: #17120e;
+  box-shadow:
+    0 40px 80px -50px rgba(23, 19, 16, 0.85),
+    0 2px 0 rgba(255, 255, 255, 0.04) inset;
+  transform-style: preserve-3d;
+  transition:
+    transform 0.9s cubic-bezier(0.2, 0.7, 0.25, 1),
+    box-shadow 0.9s cubic-bezier(0.2, 0.7, 0.25, 1);
+  will-change: transform;
+}
+
+.lux-cat-card:hover .lux-cat-card__inner,
+.lux-cat-card:focus-within .lux-cat-card__inner {
+  transform: translateY(-10px);
+  box-shadow:
+    0 60px 100px -60px rgba(23, 19, 16, 0.95),
+    0 0 0 1px color-mix(in srgb, var(--acc, #b4622a) 30%, transparent);
+}
+
+/* ---------- MEDIA ---------- */
+.lux-cat-card__media {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+.lux-cat-card__media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.02);
+  transition: transform 1.4s cubic-bezier(0.2, 0.7, 0.25, 1);
+  will-change: transform;
+}
+
+.lux-cat-card:hover .lux-cat-card__media img,
+.lux-cat-card:focus-within .lux-cat-card__media img {
+  transform: scale(1.1);
+}
+
+/* SVG icon fallback (shown if a photo fails to load) */
+.lux-cat-card__media figcaption {
+  position: absolute;
+  inset: 0;
+  display: none;
+  place-items: center;
+  background: linear-gradient(150deg, var(--w1, #d3a873), var(--w3, #7d5733));
+}
+
+.lux-cat-card__media figcaption svg {
+  width: 60%;
+  height: auto;
+  opacity: 0.95;
+}
+
+.lux-cat-card.no-img .lux-cat-card__media img {
+  display: none;
+}
+
+.lux-cat-card.no-img .lux-cat-card__media figcaption {
+  display: grid;
+}
+
+/* ---------- SCRIM ---------- */
+.lux-cat-card__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(10, 8, 7, 0.18) 0%,
+    rgba(10, 8, 7, 0.28) 35%,
+    rgba(10, 8, 7, 0.78) 72%,
+    rgba(10, 8, 7, 0.96) 100%
+  );
+  transition: background 0.9s cubic-bezier(0.2, 0.7, 0.25, 1);
+  pointer-events: none;
+}
+
+.lux-cat-card:hover .lux-cat-card__scrim,
+.lux-cat-card:focus-within .lux-cat-card__scrim {
+  background: linear-gradient(
+    180deg,
+    rgba(10, 8, 7, 0.15) 0%,
+    rgba(10, 8, 7, 0.25) 35%,
+    rgba(10, 8, 7, 0.82) 72%,
+    rgba(10, 8, 7, 0.98) 100%
+  );
+}
+
+/* ---------- INNER FRAME ---------- */
+.lux-cat-card__frame {
+  position: absolute;
+  inset: 14px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  pointer-events: none;
+  z-index: 3;
+  transition:
+    inset 0.7s cubic-bezier(0.2, 0.7, 0.25, 1),
+    border-color 0.7s;
+}
+
+.lux-cat-card:hover .lux-cat-card__frame,
+.lux-cat-card:focus-within .lux-cat-card__frame {
+  inset: 18px;
+  border-color: rgba(217, 154, 78, 0.5);
+}
+
+/* ---------- CONTENT ---------- */
+.lux-cat-card__content {
+  position: relative;
+  z-index: 4;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(1.6rem, 2.4vw, 2.2rem);
+  color: #fff;
+}
+
+.lux-cat-card__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.lux-cat-num {
+  font-family: Fraunces, Georgia, serif;
+  font-weight: 500;
+  font-size: clamp(2.4rem, 4vw, 3.4rem);
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.55);
+  transition:
+    -webkit-text-stroke-color 0.7s,
+    color 0.7s;
+}
+
+.lux-cat-card:hover .lux-cat-num,
+.lux-cat-card:focus-within .lux-cat-num {
+  -webkit-text-stroke-color: var(--acc-2, #d99a4e);
+  color: rgba(217, 154, 78, 0.14);
+}
+
+.lux-cat-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.5rem 0.95rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.92);
+  white-space: nowrap;
+}
+
+.lux-cat-tag::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--acc-2, #d99a4e);
+  box-shadow: 0 0 0 3px rgba(217, 154, 78, 0.22);
+}
+
+.lux-cat-card__body {
+  margin-top: auto;
+}
+
+.lux-cat-rule {
+  display: block;
+  width: 42px;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--acc-2, #d99a4e), transparent);
+  margin-bottom: 1rem;
+  transition: width 0.7s cubic-bezier(0.2, 0.7, 0.25, 1);
+}
+
+.lux-cat-card:hover .lux-cat-rule,
+.lux-cat-card:focus-within .lux-cat-rule {
+  width: 72px;
+}
+
+.lux-cat-card h3 {
+  font-family: Fraunces, Georgia, serif;
+  font-weight: 600;
+  font-size: clamp(1.4rem, 2.2vw, 1.9rem);
+  line-height: 1.14;
+  letter-spacing: -0.02em;
+  color: #fff;
+  margin: 0 0 0.7rem;
+  transition: transform 0.7s cubic-bezier(0.2, 0.7, 0.25, 1);
+}
+
+.lux-cat-card:hover h3,
+.lux-cat-card:focus-within h3 {
+  transform: translateY(-4px);
+}
+
+.lux-cat-card p {
+  color: rgba(255, 255, 255, 0.76);
+  font-size: 0.92rem;
+  line-height: 1.65;
+  max-width: 44ch;
+  margin: 0 0 1.5rem;
+  transition: color 0.7s;
+}
+
+.lux-cat-card:hover p,
+.lux-cat-card:focus-within p {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.lux-cat-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.35rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #fff;
+  font-size: 0.84rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  transition:
+    background 0.4s,
+    border-color 0.4s,
+    transform 0.4s cubic-bezier(0.2, 0.7, 0.25, 1),
+    box-shadow 0.4s;
+}
+
+.lux-cat-link svg {
+  width: 15px;
+  height: 15px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 0.4s cubic-bezier(0.2, 0.7, 0.25, 1);
+}
+
+.lux-cat-link:hover,
+.lux-cat-link:focus-visible {
+  background: var(--acc, #b4622a);
+  border-color: var(--acc, #b4622a);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px -16px rgba(180, 98, 42, 1);
+  outline: none;
+}
+
+.lux-cat-link:hover svg,
+.lux-cat-link:focus-visible svg {
+  transform: translateX(3px);
+}
+
+.lux-cat-link:focus-visible {
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.4);
+}
+
+/* ---------- CTA ---------- */
+.lux-cat-cta-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(2.4rem, 4.4vw, 3.6rem);
+}
+
+.lux-cat-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 1rem 2.1rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--acc, #b4622a), #8d4718);
+  color: #fff;
+  font-size: 0.94rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  box-shadow: 0 18px 38px -20px rgba(180, 98, 42, 0.95);
+  transition:
+    transform 0.4s cubic-bezier(0.2, 0.7, 0.25, 1),
+    box-shadow 0.4s,
+    filter 0.4s;
+}
+
+.lux-cat-cta:hover {
+  transform: translateY(-3px);
+  filter: brightness(1.07);
+  box-shadow: 0 26px 50px -22px rgba(180, 98, 42, 1);
+}
+
+.lux-cat-cta svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 0.4s cubic-bezier(0.2, 0.7, 0.25, 1);
+}
+
+.lux-cat-cta:hover svg {
+  transform: translateX(3px);
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 900px) {
+  .lux-cat-head {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 720px) {
+  .lux-cat-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
+  }
+
+  .lux-cat-card__inner {
+    aspect-ratio: 4 / 5;
+    border-radius: 22px;
+  }
+
+  .lux-cat-card__frame {
+    inset: 12px;
+    border-radius: 14px;
+  }
+
+  .lux-cat-card:hover .lux-cat-card__frame,
+  .lux-cat-card:focus-within .lux-cat-card__frame {
+    inset: 14px;
+  }
+
+  .lux-cat-cta {
+    width: 100%;
+    padding-block: 1.05rem;
+  }
+}
+
+/* touch devices: no lift, no image zoom */
+@media (hover: none) {
+  .lux-cat-card:hover .lux-cat-card__inner,
+  .lux-cat-card:focus-within .lux-cat-card__inner {
+    transform: none;
+  }
+
+  .lux-cat-card:hover .lux-cat-card__media img,
+  .lux-cat-card:focus-within .lux-cat-card__media img {
+    transform: scale(1.02);
+  }
+}
+
+/* ---------- REDUCED MOTION ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .lux-cat-card__inner,
+  .lux-cat-card__media img,
+  .lux-cat-card__frame,
+  .lux-cat-num,
+  .lux-cat-rule,
+  .lux-cat-link,
+  .lux-cat-cta {
+    transition: none !important;
+    transform: none !important;
+  }
+
+  .lux-cat-card__scrim,
+  .lux-cat-card h3,
+  .lux-cat-card p {
+    transition: none !important;
+  }
+}

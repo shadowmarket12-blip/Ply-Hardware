@@ -1,0 +1,502 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>Page not found | Parbati Ply and Hardware</title>
+    <meta
+      name="description"
+      content="This page could not be found. Browse plywood, hardware, laminates, doors and ACP sheets at Parbati Ply and Hardware, Damana Chaak, Bhubaneswar."
+    />
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="icon" href="images/logo.jpeg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,900&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* Self-contained: no dependency on style.css, so it works at any URL depth */
+      :root {
+        --bg: #faf6f1;
+        --surface: #ffffff;
+        --ink: #1b1613;
+        --muted: #6d625a;
+        --line: #e6dcd2;
+        --red: #d6191f;
+        --ply1: #e2b985;
+        --ply2: #c9955c;
+        --ply3: #a9743f;
+        --ply4: #7d5129;
+        --shadow: rgba(60, 35, 15, 0.28);
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #14100d;
+          --surface: #1d1713;
+          --ink: #f5ece3;
+          --muted: #a79a8f;
+          --line: #33291f;
+          --ply1: #d8ad77;
+          --ply2: #b98450;
+          --ply3: #94622f;
+          --ply4: #5f3d1e;
+          --shadow: rgba(0, 0, 0, 0.6);
+        }
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-padding-top: env(safe-area-inset-top, 0px);
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        background: var(--bg);
+        color: var(--ink);
+        font-family:
+          "Inter",
+          system-ui,
+          -apple-system,
+          "Segoe UI",
+          Roboto,
+          sans-serif;
+        line-height: 1.6;
+        padding-top: env(safe-area-inset-top, 0px);
+        padding-bottom: env(safe-area-inset-bottom, 0px);
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      :focus-visible {
+        outline: 3px solid var(--red);
+        outline-offset: 3px;
+        border-radius: 6px;
+      }
+
+      .wrap {
+        width: min(1120px, 100% - 40px);
+        margin-inline: auto;
+      }
+
+      /* ---------- Header ---------- */
+      .nf-head {
+        border-bottom: 1px solid var(--line);
+        background: var(--surface);
+      }
+
+      .nf-nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 10px 0;
+      }
+
+      .nf-nav img {
+        width: 64px;
+        height: 64px;
+        object-fit: contain;
+        display: block;
+      }
+
+      .nf-links {
+        display: flex;
+        align-items: center;
+        gap: 26px;
+        font-weight: 500;
+        font-size: 0.95rem;
+      }
+
+      .nf-links a:hover {
+        color: var(--red);
+      }
+
+      @media (max-width: 640px) {
+        .nf-links a.hide-sm {
+          display: none;
+        }
+      }
+
+      /* ---------- Buttons ---------- */
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 14px 26px;
+        border-radius: 999px;
+        background: var(--red);
+        color: #fff;
+        font-weight: 600;
+        font-size: 0.98rem;
+        border: 2px solid var(--red);
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s,
+          background 0.2s;
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 22px -8px var(--red);
+      }
+
+      .btn.ghost {
+        background: transparent;
+        color: var(--ink);
+        border-color: var(--ink);
+      }
+
+      .btn.ghost:hover {
+        background: var(--ink);
+        color: var(--bg);
+        box-shadow: none;
+      }
+
+      .btn svg {
+        width: 18px;
+        height: 18px;
+        fill: none;
+        stroke: currentColor;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+      }
+
+      /* ---------- Hero ---------- */
+      main {
+        flex: 1;
+      }
+
+      .nf-hero {
+        padding: clamp(40px, 7vw, 90px) 0 clamp(30px, 5vw, 60px);
+        text-align: center;
+      }
+
+      .nf-path {
+        display: inline-block;
+        max-width: 100%;
+        padding: 6px 16px;
+        margin: 0 0 28px;
+        border: 1px dashed var(--ply3);
+        border-radius: 999px;
+        color: var(--muted);
+        font-size: 0.88rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .nf-path b {
+        color: var(--red);
+        font-weight: 600;
+      }
+
+      /* The memorable element: a 404 cut from layered plywood, with a laser line */
+      .nf-sheet {
+        position: relative;
+        display: inline-block;
+        line-height: 1;
+        user-select: none;
+      }
+
+      .nf-404 {
+        display: block;
+        margin: 0;
+        font-family: "Fraunces", Georgia, serif;
+        font-weight: 900;
+        font-size: clamp(7rem, 26vw, 17rem);
+        letter-spacing: -0.02em;
+        color: var(--ply1);
+        /* stacked "plies" under the top face */
+        text-shadow:
+          0 0.02em 0 var(--ply2),
+          0 0.04em 0 var(--ply3),
+          0 0.06em 0 var(--ply2),
+          0 0.08em 0 var(--ply3),
+          0 0.1em 0 var(--ply4),
+          0 0.12em 0 var(--ply4),
+          0 0.22em 0.12em var(--shadow);
+        background:
+          repeating-linear-gradient(
+            95deg,
+            rgba(0, 0, 0, 0.09) 0 2px,
+            transparent 2px 11px
+          ),
+          linear-gradient(var(--ply1), var(--ply1));
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        /* background-clip:text hides text-shadow in some browsers; the ::before layer below carries the depth */
+        position: relative;
+        z-index: 1;
+      }
+
+      .nf-404-depth {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        margin: 0;
+        font: inherit;
+        color: var(--ply1);
+        text-shadow:
+          0 0.02em 0 var(--ply2),
+          0 0.04em 0 var(--ply3),
+          0 0.06em 0 var(--ply2),
+          0 0.08em 0 var(--ply3),
+          0 0.1em 0 var(--ply4),
+          0 0.12em 0 var(--ply4),
+          0 0.22em 0.12em var(--shadow);
+      }
+
+      .nf-laser {
+        position: absolute;
+        top: -6%;
+        bottom: -6%;
+        left: 0;
+        width: 0;
+        z-index: 2;
+        border-left: 3px dashed var(--red);
+        filter: drop-shadow(0 0 6px var(--red));
+        animation: cut 3.6s cubic-bezier(0.6, 0, 0.3, 1) 0.4s infinite;
+      }
+
+      .nf-laser::before,
+      .nf-laser::after {
+        content: "";
+        position: absolute;
+        left: -9px;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        background: var(--red);
+        box-shadow: 0 0 14px 4px var(--red);
+      }
+
+      .nf-laser::before {
+        top: -8px;
+      }
+
+      .nf-laser::after {
+        bottom: -8px;
+      }
+
+      @keyframes cut {
+        0% {
+          left: 0;
+          opacity: 0;
+        }
+
+        8% {
+          opacity: 1;
+        }
+
+        85% {
+          opacity: 1;
+        }
+
+        100% {
+          left: 100%;
+          opacity: 0;
+        }
+      }
+
+      .nf-h1 {
+        font-family: "Fraunces", Georgia, serif;
+        font-weight: 700;
+        font-size: clamp(1.7rem, 4.2vw, 2.7rem);
+        line-height: 1.15;
+        margin: clamp(26px, 4vw, 44px) auto 14px;
+        max-width: 18ch;
+      }
+
+      .nf-lead {
+        color: var(--muted);
+        max-width: 54ch;
+        margin: 0 auto 30px;
+        font-size: 1.05rem;
+      }
+
+      .nf-cta {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px;
+      }
+
+      /* ---------- Quick links ---------- */
+      .nf-links-sec {
+        padding: clamp(30px, 5vw, 60px) 0 clamp(50px, 7vw, 90px);
+      }
+
+      .nf-links-sec h2 {
+        font-family: "Fraunces", Georgia, serif;
+        font-size: 1.5rem;
+        margin: 0 0 20px;
+        text-align: center;
+      }
+
+      .nf-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+        gap: 14px;
+      }
+
+      .nf-card {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        padding: 20px 20px 18px;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: var(--surface);
+        border-top: 4px solid var(--ply2);
+        transition:
+          border-color 0.2s,
+          transform 0.2s;
+      }
+
+      .nf-card b {
+        font-size: 1.02rem;
+      }
+
+      .nf-card span {
+        color: var(--muted);
+        font-size: 0.88rem;
+      }
+
+      .nf-card:hover {
+        border-top-color: var(--red);
+        transform: translateY(-3px);
+      }
+
+      /* ---------- Footer ---------- */
+      .nf-foot {
+        border-top: 1px solid var(--line);
+        background: var(--surface);
+        padding: 26px 0;
+        font-size: 0.9rem;
+        color: var(--muted);
+      }
+
+      .nf-foot .wrap {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 10px 24px;
+      }
+
+      .nf-foot a:hover {
+        color: var(--red);
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .nf-laser {
+          animation: none;
+          left: 50%;
+          opacity: 1;
+        }
+
+        .btn,
+        .nf-card {
+          transition: none;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <main id="main">
+      <section class="nf-hero">
+        <div class="wrap">
+          <p class="nf-path" id="nf-path">
+            We couldn’t find <b id="nf-url">this page</b>
+          </p>
+
+          <div class="nf-sheet" aria-hidden="true">
+            <div class="nf-404-depth">404</div>
+            <h2 class="nf-404" style="margin: 0">404</h2>
+            <span class="nf-laser"></span>
+          </div>
+
+          <h1 class="nf-h1">This page has been cut from the sheet</h1>
+          <p class="nf-lead">
+            The link may be old, or the address may have a typo. Head back to
+            the homepage or pick a product range below. For rates and
+            availability, message us on WhatsApp.
+          </p>
+
+          <div class="nf-cta">
+            <a class="btn" href="/index.html">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M3 11l9-8 9 8" />
+                <path d="M5 10v10h14V10" />
+              </svg>
+              Back to home
+            </a>
+          </div>
+        </div>
+      </section>
+      <!-- 
+            <section class="nf-links-sec" aria-labelledby="nf-browse">
+                  <div class="wrap">
+                        <h2 id="nf-browse">Looking for something? Start here</h2>
+                        <div class="nf-grid">
+                              <a class="nf-card" href="/index.html#plywood"><b>Plywood</b><span>Furniture, kitchens and
+                                          interiors</span></a>
+                              <a class="nf-card" href="/index.html#shop"><b>Hardware</b><span>Cabinet, drawer and door
+                                          fittings</span></a>
+                              <a class="nf-card" href="/index.html#shop"><b>Laminates</b><span>Finishes, patterns and
+                                          textures</span></a>
+                              <a class="nf-card" href="/index.html#shop"><b>Doors and WPC</b><span>Doors and
+                                          frames</span></a>
+                              <a class="nf-card" href="/index.html#shop"><b>ACP sheets</b><span>Interior and commercial
+                                          use</span></a>
+                              <a class="nf-card" href="/contact.html"><b>Visit the store</b><span>Near Damana Chaak</span></a>
+                        </div>
+                  </div>
+            </section> -->
+    </main>
+
+    <footer class="nf-foot">
+      <div class="wrap">
+        <span
+          >© <span id="yr">2026</span> Parbati Ply and Hardware. All rights
+          reserved.</span
+        >
+        <span
+          >Mon – Sat, 9:30 AM – 8:30 PM ·
+          <a href="tel:+918895812022">+91 88958 12022</a></span
+        >
+      </div>
+    </footer>
+
+    <script>
+      (function () {
+        var p = decodeURIComponent(location.pathname + location.search);
+        if (p && p !== "/" && p !== "/404.html") {
+          document.getElementById("nf-url").textContent =
+            p.length > 60 ? p.slice(0, 57) + "…" : p;
+        }
+        document.getElementById("yr").textContent = new Date().getFullYear();
+      })();
+    </script>
+  </body>
+</html>
