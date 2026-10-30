@@ -1,0 +1,495 @@
+:root {
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --glow: 0 40px 80px -30px rgba(214, 25, 31, 0.35);
+  --ply: 0 5px 0 var(--w1), 0 10px 0 var(--w2), 0 15px 0 var(--w3);
+}
+
+/* ---------- 3D tilt + glass shine (set by premium.js) ---------- */
+.tilt {
+  --rx: 0deg;
+  --ry: 0deg;
+  --mx: 50%;
+  --my: 50%;
+  position: relative;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+.tilt.in,
+.tilt:not(.rv) {
+  transform: perspective(900px) rotateX(var(--rx)) rotateY(var(--ry));
+  transition:
+    opacity 0.9s ease,
+    transform 0.25s ease-out,
+    box-shadow 0.4s,
+    border-color 0.4s;
+}
+.tilt::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 2;
+  background: radial-gradient(
+    420px circle at var(--mx) var(--my),
+    rgba(255, 255, 255, 0.22),
+    transparent 55%
+  );
+  opacity: 0;
+  transition: opacity 0.35s;
+  mix-blend-mode: soft-light;
+}
+.tilt:hover::before {
+  opacity: 1;
+}
+.tilt:hover {
+  box-shadow: var(--glow);
+}
+
+/* nicer 3D reveal */
+.rv {
+  transform: perspective(900px) translateY(40px) rotateX(8deg);
+  transform-origin: 50% 100%;
+}
+.rv.in {
+  transform: none;
+}
+
+/* ---------- Section titles ---------- */
+.sec-head h2,
+.cust h2,
+.ltext h2 {
+  background: linear-gradient(120deg, var(--text) 30%, var(--red) 140%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.cust h2,
+.vcard h2 {
+  background: linear-gradient(120deg, #fff 40%, #e0bd85);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  overflow: hidden;
+  isolation: isolate;
+}
+.btn:not(.ghost)::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  transform: translateX(-120%) skewX(-20deg);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.35),
+    transparent
+  );
+  transition: transform 0.7s var(--ease);
+}
+.btn:not(.ghost):hover::after {
+  transform: translateX(120%) skewX(-20deg);
+}
+
+/* ---------- About: big floating plywood stack ---------- */
+.craft {
+}
+.layers {
+  height: 440px;
+  position: relative;
+}
+.layers::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 6%;
+  width: 260px;
+  height: 44px;
+  translate: -50% 0;
+  /* background: radial-gradient(ellipse, rgba(0, 0, 0, 0.35), transparent 70%); */
+  filter: blur(8px);
+}
+.stack {
+  width: 280px;
+  height: 280px;
+  animation: spinStack 9s ease-in-out infinite alternate;
+}
+.slab {
+  box-shadow:
+    0 3px 0 rgba(0, 0, 0, 0.25),
+    0 30px 40px -20px rgba(0, 0, 0, 0.45);
+}
+@keyframes spinStack {
+  from {
+    transform: rotateX(58deg) rotateZ(-38deg);
+  }
+  to {
+    transform: rotateX(58deg) rotateZ(-14deg);
+  }
+}
+.chips span {
+  transition: 0.3s var(--ease);
+}
+.chips span:hover {
+  background: var(--red);
+  color: #fff;
+  border-color: var(--red);
+  transform: translateY(-3px);
+}
+
+/* ---------- Plywood feature (dark 3D) ---------- */
+#plywood .cust {
+  background:
+    radial-gradient(
+      600px 360px at 85% 0%,
+      rgba(214, 25, 31, 0.28),
+      transparent 70%
+    ),
+    radial-gradient(
+      500px 360px at 0% 100%,
+      rgba(176, 141, 87, 0.22),
+      transparent 70%
+    ),
+    #121010;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 50px 90px -40px rgba(0, 0, 0, 0.7);
+}
+#plywood .show {
+  background: linear-gradient(160deg, #fff, #f0e2d8);
+  box-shadow:
+    0 40px 60px -25px rgba(0, 0, 0, 0.6),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.6);
+}
+#plywood .show svg {
+  filter: drop-shadow(0 18px 14px rgba(0, 0, 0, 0.28));
+  transition: transform 0.6s var(--ease);
+}
+#plywood .show:hover svg:nth-child(2) {
+  transform: translateZ(40px) translateY(-8px) rotate(-4deg);
+}
+#plywood .show:hover svg:nth-child(3) {
+  transform: translateZ(40px) translateY(-8px) rotate(4deg);
+}
+#plywood .show .a {
+  animation: bob 5s ease-in-out infinite;
+}
+@keyframes bob {
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* ---------- Product cards ---------- */
+.cgrid {
+  gap: 1.6rem;
+}
+.ccard {
+  border-radius: 30px;
+  background: linear-gradient(180deg, var(--bg), var(--surface));
+  box-shadow: 0 20px 40px -28px rgba(0, 0, 0, 0.35);
+}
+.ccard .ci {
+  position: relative;
+  overflow: hidden;
+  padding-top: 2rem;
+}
+.ccard .ci::after {
+  content: "";
+  position: absolute;
+  left: 12%;
+  right: 12%;
+  bottom: 8px;
+  height: 16px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(0, 0, 0, 0.28), transparent 70%);
+  filter: blur(5px);
+}
+.ccard .ci svg {
+  filter: drop-shadow(0 16px 12px rgba(0, 0, 0, 0.25));
+  position: relative;
+  z-index: 1;
+}
+.ccard:hover .ci svg {
+  transform: scale(1.14) translateY(-6px) rotate(-3deg);
+}
+.ccard .cb a {
+  display: inline-flex;
+  gap: 0.4rem;
+  transition: gap 0.3s;
+}
+.ccard .cb a:hover {
+  gap: 0.9rem;
+}
+
+/* ---------- Brands ---------- */
+.bchip {
+  background: linear-gradient(180deg, #fff, #f6f1ec);
+  box-shadow:
+    0 14px 24px -16px rgba(0, 0, 0, 0.4),
+    inset 0 -3px 0 rgba(0, 0, 0, 0.05);
+  transition:
+    transform 0.45s var(--ease),
+    border-color 0.3s,
+    box-shadow 0.3s;
+}
+.bchip:hover {
+  transform: perspective(600px) translateY(-8px) rotateY(14deg) scale(1.05);
+  box-shadow: 0 30px 40px -20px rgba(0, 0, 0, 0.5);
+}
+.bnote.sm {
+  opacity: 0.85;
+}
+
+/* ---------- Services: stacked-plywood edge ---------- */
+.sgrid {
+  gap: 2.2rem 1.6rem;
+  padding-bottom: 1.2rem;
+}
+.scard {
+  position: relative;
+  border-radius: 26px;
+  box-shadow: var(--ply);
+  margin-bottom: 1rem;
+  background: linear-gradient(180deg, var(--bg), var(--surface));
+}
+.scard svg {
+  width: 96px;
+  height: 76px;
+  filter: drop-shadow(0 10px 8px rgba(0, 0, 0, 0.25));
+  transition: transform 0.5s var(--ease);
+}
+.scard:hover svg {
+  transform: translateY(-6px) rotate(-5deg) scale(1.08);
+}
+.scard::after {
+  content: counter(sv, decimal-leading-zero);
+  counter-increment: sv;
+  position: absolute;
+  top: 1.2rem;
+  right: 1.5rem;
+  font: 700 2.6rem var(--head);
+  color: var(--red);
+  opacity: 0.12;
+}
+.sgrid {
+  counter-reset: sv;
+}
+
+/* ---------- Why choose us ---------- */
+.wcard {
+  border-radius: 24px;
+  background: linear-gradient(145deg, var(--bg), var(--surface));
+  box-shadow: 0 18px 30px -24px rgba(0, 0, 0, 0.4);
+}
+.wcard i {
+  box-shadow: 0 8px 16px -4px rgba(214, 25, 31, 0.55);
+  transition: transform 0.5s var(--ease);
+}
+.wcard:hover i {
+  transform: rotateY(360deg) scale(1.1);
+}
+
+/* ---------- Blogs ---------- */
+.bcard {
+  border-radius: 30px;
+  box-shadow: 0 20px 40px -28px rgba(0, 0, 0, 0.35);
+}
+.bimg {
+  overflow: hidden;
+}
+.bimg svg {
+  filter: drop-shadow(0 14px 10px rgba(0, 0, 0, 0.25));
+  transition: transform 0.6s var(--ease);
+}
+.bcard:hover .bimg svg {
+  transform: scale(1.12) rotate(-3deg);
+}
+.bbody a {
+  transition: letter-spacing 0.3s;
+}
+.bbody a:hover {
+  letter-spacing: 0.04em;
+}
+
+/* ---------- Location + contact cards ---------- */
+.vcard {
+  background:
+    radial-gradient(
+      500px 300px at 100% 0%,
+      rgba(214, 25, 31, 0.28),
+      transparent 70%
+    ),
+    #121010;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 50px 80px -40px rgba(0, 0, 0, 0.65);
+}
+.vform {
+  background: linear-gradient(180deg, var(--bg), var(--surface));
+}
+.vform input,
+.vform select {
+  transition:
+    box-shadow 0.3s,
+    transform 0.3s;
+}
+.vform input:focus,
+.vform select:focus {
+  box-shadow: 0 0 0 4px var(--red-soft);
+  transform: translateY(-2px);
+}
+
+/* ---------- FAQ cards ---------- */
+.faq {
+  display: grid;
+  gap: 0.9rem;
+}
+details {
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  padding: 1.2rem 1.5rem;
+  background: var(--bg);
+  transition: 0.35s var(--ease);
+}
+details:hover {
+  border-color: var(--gold);
+}
+details[open] {
+  background: linear-gradient(145deg, var(--bg), var(--surface));
+  box-shadow: var(--shadow);
+  border-color: var(--red);
+}
+summary::after {
+  width: 36px;
+  height: 36px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--red-soft);
+  font-size: 1.4rem;
+}
+details[open] p {
+  animation: fd 0.4s var(--ease);
+}
+@keyframes fd {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+}
+
+/* ---------- Footer polish ---------- */
+footer {
+  background:
+    radial-gradient(
+      700px 300px at 90% 0%,
+      rgba(214, 25, 31, 0.18),
+      transparent 70%
+    ),
+    #0f0d0c;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+  .layers {
+    height: 340px;
+  }
+  .stack {
+    width: 220px;
+    height: 220px;
+  }
+  .cust {
+    padding: 1.6rem;
+  }
+  .sec-head {
+    margin-bottom: 2rem;
+  }
+}
+@media (max-width: 560px) {
+  .btn {
+    width: 100%;
+  }
+  .cta .btn,
+  .btns .btn,
+  .nav-cta {
+    width: auto;
+  }
+  .cgrid,
+  .sgrid,
+  .wgrid,
+  .bgrid {
+    grid-template-columns: 1fr;
+  }
+  .vcard,
+  .vform {
+    border-radius: 26px;
+  }
+  details {
+    padding: 1rem 1.1rem;
+  }
+  summary {
+    font-size: 1.02rem;
+  }
+}
+@media (hover: none) {
+  .tilt:hover {
+    box-shadow: none;
+  }
+  .tilt::before {
+    display: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .rv {
+    transform: none;
+  }
+  .tilt.in,
+  .tilt:not(.rv) {
+    transform: none;
+  }
+}
+
+/* ---------- Brands: logo-only section ---------- */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+.brands {
+  padding: clamp(2.5rem, 5vw, 4rem) 0;
+}
+.bchip {
+  width: 230px;
+  height: 120px;
+  padding: 18px 28px;
+  border-radius: 26px;
+}
+.bchip img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.45s var(--ease);
+}
+.bchip:hover img {
+  transform: scale(1.08);
+}
+.brands .center {
+  margin-top: 2rem;
+}
+@media (max-width: 560px) {
+  .bchip {
+    width: 160px;
+    height: 84px;
+    padding: 12px 18px;
+    border-radius: 20px;
+  }
+}

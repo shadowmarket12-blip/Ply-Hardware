@@ -1,0 +1,439 @@
+/* ============================================================
+   BRAND SECTION — theme aware (light + dark)
+   Uses the tokens from your :root (--bg, --text, --muted, --line,
+   --red, --red-d, --red-soft, --head). No hard-coded dark colors.
+   ============================================================ */
+
+.brand-section {
+  /* map section names -> your theme tokens (they switch with the theme) */
+  --ink: var(--text);
+  --ink-2: var(--muted);
+  --ink-3: var(--muted);
+  --acc: var(--red);
+  --acc-soft: var(--red-soft);
+
+  position: relative;
+  padding: clamp(4rem, 8vw, 7rem) 0;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--bg);
+  color: var(--text);
+  transition:
+    color 0.3s ease,
+    background-color 0.3s ease;
+}
+
+.brand-section::before {
+  content: "";
+  position: absolute;
+  inset: -18% -8% auto -8%;
+  height: 78%;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.brand-section .wrap {
+  position: relative;
+}
+
+/* ---------- HEAD ---------- */
+.bs-head {
+  max-width: 74ch;
+  margin: 0 auto clamp(2rem, 4vw, 3rem);
+  text-align: center;
+}
+
+.bs-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--acc);
+  margin-bottom: 1rem;
+}
+
+.bs-eyebrow::before {
+  content: "";
+  width: 26px;
+  height: 2px;
+  border-radius: 2px;
+  background: currentColor;
+}
+
+.bs-head h2 {
+  font-family: var(--head);
+  font-weight: 600;
+  font-size: clamp(1.7rem, 3.4vw, 2.7rem);
+  line-height: 1.12;
+  letter-spacing: -0.022em;
+  margin: 0 0 0.85rem;
+  color: var(--text);
+  transition: color 0.3s ease;
+}
+
+.bs-lead {
+  margin: 0 auto;
+  max-width: 68ch;
+  font-size: clamp(0.96rem, 1.2vw, 1.06rem);
+  line-height: 1.72;
+  color: var(--muted);
+  transition: color 0.3s ease;
+}
+
+/* ---------- MARQUEE ROWS ---------- */
+.bs-row {
+  --bs-gap: clamp(1.2rem, 2.4vw, 2rem);
+}
+
+.bs-row + .bs-row {
+  margin-top: clamp(0.4rem, 1.2vw, 0.9rem);
+}
+
+.bs-row--primary {
+  --bs-dur: 46s;
+}
+
+.bs-row--secondary {
+  --bs-dur: 34s;
+}
+
+.bs-marquee {
+  position: relative;
+  overflow: hidden;
+  padding-block: 1rem 1.7rem;
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 8%,
+    #000 92%,
+    transparent
+  );
+  mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 8%,
+    #000 92%,
+    transparent
+  );
+}
+
+.bs-track {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  animation: bs-scroll var(--bs-dur, 44s) linear infinite;
+  will-change: transform;
+}
+
+.bs-row--secondary .bs-track {
+  animation-direction: reverse;
+}
+
+.bs-marquee:hover .bs-track,
+.bs-marquee:focus-within .bs-track {
+  animation-play-state: paused;
+}
+
+@keyframes bs-scroll {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.bs-group {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.bs-item {
+  flex: none;
+  margin-inline-end: var(--bs-gap);
+}
+
+/* ---------- LOGO TILES ---------- */
+.bs-logo {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: clamp(150px, 16vw, 186px);
+  height: clamp(80px, 9vw, 98px);
+  overflow: visible;
+  transition: transform 0.45s cubic-bezier(0.2, 0.7, 0.25, 1);
+}
+
+.bs-item:hover .bs-logo {
+  transform: translateY(-5px);
+}
+
+.bs-logo img {
+  max-height: 72px;
+  max-width: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  transition:
+    filter 0.45s,
+    opacity 0.45s,
+    background-color 0.3s,
+    transform 0.45s cubic-bezier(0.2, 0.7, 0.25, 1);
+}
+
+.bs-item:hover .bs-logo img {
+  transform: scale(1.06);
+}
+
+/* typographic fallback if a logo file is missing */
+.bs-word {
+  display: none;
+  font-family: var(--head);
+  font-size: clamp(1rem, 1.4vw, 1.15rem);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  text-align: center;
+  color: var(--text);
+}
+
+.bs-logo.is-text img {
+  display: none;
+}
+
+.bs-logo.is-text .bs-word {
+  display: block;
+}
+
+/* ---------- DARK THEME: light tile behind logos so they stay visible ---------- */
+:root[data-theme="dark"] .bs-logo img {
+  background: #fffdfb;
+  padding: 10px 16px;
+  border-radius: 14px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .bs-logo img {
+    background: #fffdfb;
+    padding: 10px 16px;
+    border-radius: 14px;
+  }
+}
+
+/* ---------- PILLS (secondary row) ---------- */
+.bs-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  height: clamp(44px, 5vw, 54px);
+  padding: 0 clamp(1.05rem, 1.8vw, 1.5rem);
+  border-radius: 999px;
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--muted);
+  font-size: clamp(0.82rem, 1vw, 0.92rem);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  transition:
+    color 0.35s,
+    border-color 0.35s,
+    background 0.35s,
+    transform 0.35s cubic-bezier(0.2, 0.7, 0.25, 1);
+}
+
+.bs-pill::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--red);
+  opacity: 0.55;
+  transition:
+    opacity 0.35s,
+    box-shadow 0.35s;
+}
+
+.bs-item:hover .bs-pill {
+  color: var(--text);
+  background: var(--red-soft);
+  border-color: var(--red);
+  border-color: color-mix(in srgb, var(--red) 45%, var(--line));
+  transform: translateY(-3px);
+}
+
+.bs-item:hover .bs-pill::before {
+  opacity: 1;
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--red) 16%, transparent);
+}
+
+/* ---------- FOOT (note + CTA) ---------- */
+.bs-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.2rem;
+  margin-top: clamp(1.4rem, 3vw, 2.2rem);
+  padding-top: clamp(1.4rem, 2.4vw, 2rem);
+  border-top: 1px solid var(--line);
+}
+
+.bs-note {
+  margin: 0;
+  max-width: 62ch;
+  font-size: 0.86rem;
+  line-height: 1.65;
+  color: var(--muted);
+  transition: color 0.3s ease;
+}
+
+.bs-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.92rem 1.75rem;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--red), var(--red-d));
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  box-shadow: 0 14px 30px -16px rgba(214, 25, 31, 0.95);
+  transition:
+    transform 0.35s cubic-bezier(0.2, 0.7, 0.25, 1),
+    box-shadow 0.35s,
+    filter 0.35s;
+}
+
+.bs-cta:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.07);
+  box-shadow: 0 20px 40px -18px rgba(214, 25, 31, 1);
+}
+
+.bs-cta svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.25, 1);
+}
+
+.bs-cta:hover svg {
+  transform: translateX(3px);
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 900px) {
+  .bs-head {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .bs-row {
+    --bs-gap: 1rem;
+  }
+
+  .bs-logo {
+    width: 134px;
+    height: 74px;
+  }
+
+  .bs-logo img {
+    max-height: 56px;
+  }
+
+  :root[data-theme="dark"] .bs-logo img {
+    padding: 8px 12px;
+  }
+
+  .bs-marquee {
+    padding-block: 0.8rem 1.4rem;
+    -webkit-mask-image: linear-gradient(
+      90deg,
+      transparent,
+      #000 5%,
+      #000 95%,
+      transparent
+    );
+    mask-image: linear-gradient(
+      90deg,
+      transparent,
+      #000 5%,
+      #000 95%,
+      transparent
+    );
+  }
+
+  .bs-foot {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .bs-cta {
+    width: 100%;
+    padding-block: 1rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .bs-logo {
+    width: 118px;
+    height: 68px;
+  }
+
+  .bs-logo img {
+    max-height: 50px;
+  }
+}
+
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  .bs-track {
+    animation: none !important;
+  }
+
+  .bs-group[aria-hidden="true"] {
+    display: none;
+  }
+
+  .bs-marquee {
+    overflow-x: auto;
+    -webkit-mask-image: none;
+    mask-image: none;
+    scrollbar-width: thin;
+    scrollbar-color: var(--line) transparent;
+  }
+
+  .bs-marquee::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .bs-marquee::-webkit-scrollbar-thumb {
+    background: var(--line);
+    border-radius: 99px;
+  }
+
+  .bs-item:hover .bs-logo,
+  .bs-item:hover .bs-pill {
+    transform: none;
+  }
+}
