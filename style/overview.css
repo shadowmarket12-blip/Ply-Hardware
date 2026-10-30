@@ -555,7 +555,6 @@
   transform: skewX(-20deg);
   transition: left 0.8s var(--l-ease);
 }
-
 .lx-btn::after {
   content: "";
   width: 8px;
